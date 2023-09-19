@@ -24,4 +24,5 @@ urlpatterns = [
     path("register/", UserRegistrationView.as_view(), name="register"),
     path("login/", UserLoginView.as_view(), name="login"),
     path("login/refresh/", UserRefreshView.as_view(), name="refresh"),
+    path("medicine/", include("medicine.urls")),
 ]
