@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = "authentication.User"
+
 
 # Application definition
 
@@ -37,17 +39,34 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Third Party
+    "rest_framework",
+    "rest_framework.authtoken",
+    "corsheaders",
+    "multiple_auth",
+    # Local
+    "authentication",
+    "users.apps.UsersConfig",
+    "medicine.apps.MedicineConfig",
+    "bill.apps.BillConfig",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    )
+}
 
 ROOT_URLCONF = "rehnuma_backend.urls"
 
@@ -98,6 +117,11 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+# AUTHENTICATION_BACKENDS = (
+#     "multiple_auth.backends.MultipleAuthentication",
+#     'django.contrib.auth.backends.ModelBackend',
+# )
 
 
 # Internationalization
